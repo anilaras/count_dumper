@@ -4,12 +4,16 @@
 
 
 int main(int argc, char** argv){
-    int icont;
-    
+    int icont = 0;
+    if (argc < 1) {
+        printf("yereli arguman yok!");
+    }
     FILE* fp;
     fp = fopen(argv[1],"r");
-    if(fp == NULL)
-        printf("olmamis bu anam bi daha ac");
+    if(fp == 0) {
+        perror("fopen");
+        exit(1);
+    }
     
     long arg2 = atoi(argv[2]);
     long arg3 = atoi(argv[3]);
@@ -21,14 +25,23 @@ int main(int argc, char** argv){
         if(strcmp(argv[4],"-tam")== 0){
             long countbyte = ftell(fp);
             if (a == 10) {
-                printf("BYTE counter : %.3ld | HEX : %.3X | DEC : %.3d | ASCII : %.3s | \n",countbyte,a,a,"nl");
+                printf("BYTE counter : %.3ld | HEX : %.3X | DEC : %.3d | ASCII : %s  \n",countbyte,a,a,"nl");
+                if( feof(fp) ) {
+                    break;
+                }
             }
             else{
-                printf("BYTE counter : %.3ld | HEX : %.3X | DEC : %.3d | ASCII : %.3c | \n",countbyte,a,a,a );
+                printf("BYTE counter : %.3ld | HEX : %.3X | DEC : %.3d | ASCII : %c  \n",countbyte,a,a,a );
+                if( feof(fp) ) {
+                    break;
+                }
             }
         }
         if(strcmp(argv[4],"-hex") == 0){
-        printf("%2X ",a);
+            printf("%2X ",a);
+            if( feof(fp) ) {
+                break;
+            }
         }
         icont++;
         if (icont >= 16) {
@@ -37,6 +50,5 @@ int main(int argc, char** argv){
         }
     }
     printf("\n");
-extag:
     return 0;
 }
