@@ -6,7 +6,7 @@
 int main(int argc, char** argv){
     int icont = 0;
     if (argc < 1) {
-        printf("yereli arguman yok!");
+        printf("yeterli arguman yok!");
     }
     FILE* fp;
     fp = fopen(argv[1],"r");
